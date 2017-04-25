@@ -1,3 +1,4 @@
-set dotfiles_path (dirname (status -f))
-source $dotfiles_path/fish/aliases.fish
-source $dotfiles_path/fish/prompt.fish
+set -g DOTFILES_PATH (dirname (status -f))
+source $DOTFILES_PATH/fish/env.fish
+source $DOTFILES_PATH/fish/aliases.fish
+source $DOTFILES_PATH/fish/prompt.fish
