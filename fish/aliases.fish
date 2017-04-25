@@ -155,13 +155,13 @@ end
 
 # Git Fetch and Merge; delete the branch upon success
 function gfmerge!
-  gf $argv[0]
+  gf $argv[1]
   gmerge! $argv
 end
 
 # Git Fetch and Merge
 function gfmerge
-  gf $argv[0]
+  gf $argv[1]
   gmerge $argv
 end
 
@@ -172,10 +172,10 @@ function gf
     git fetch
 
     # If the branch exists, delete it to be sure we've got the latest
-    git show-branch $argv[0] > /dev/null ^&1; and gdelete $argv[0]
+    git show-branch $argv[1] > /dev/null ^&1; and gdelete $argv[1]
 
-    shadowprint "git checkout -b $argv[0] origin/$argv[0]"
-    git checkout -b $argv[0] origin/$argv[0]
+    shadowprint "git checkout -b $argv[1] origin/$argv[1]"
+    git checkout -b $argv[1] origin/$argv[1]
   else
     shadowprint "git fetch --prune"
     git fetch --prune
@@ -184,8 +184,8 @@ end
 
 # Git Delete the branch locally
 function gdelete
-  shadowprint "git branch -D $argv[0]"
-  git branch -D $argv[0]
+  shadowprint "git branch -D $argv[1]"
+  git branch -D $argv[1]
 end
 
 # Git Merge; delete the branch upon success
@@ -194,7 +194,7 @@ function gmerge!
     echo "USAGE: gmerge! topic-branch [dev]"
   else
     gmerge $argv; or return 1
-    gdelete! $argv[0]
+    gdelete! $argv[1]
   end
 end
 
@@ -203,13 +203,13 @@ function gmerge
   if test (count $argv) -lt 1
     echo "USAGE: gmerge topic-branch [dev]"
   else
-    shadowprint "git checkout $argv[0]"
-    git checkout $argv[0]; or return 1
+    shadowprint "git checkout $argv[1]"
+    git checkout $argv[1]; or return 1
 
     if test (count $argv) -lt 2
       set -l target_branch "dev"
     else
-      set -l target_branch "$argv[1]" 
+      set -l target_branch "$argv[2]"
     end
 
     shadowprint "git rebase $target_branch"
@@ -218,8 +218,8 @@ function gmerge
     shadowprint "git checkout $target_branch"
     git checkout $target_branch
 
-    shadowprint "git merge --ff-only $argv[0]"
-    git merge --ff-only $argv[0]; or return 1
+    shadowprint "git merge --ff-only $argv[1]"
+    git merge --ff-only $argv[1]; or return 1
   end
 end
 
@@ -241,7 +241,7 @@ function gd
 end
 
 function ggrp
-  gl --grep=$argv[0]
+  gl --grep=$argv[1]
 end
 
 function gfm
