@@ -19,8 +19,10 @@ alias brs="bundle exec rails s"
 alias brc="bundle exec rails c"
 alias brg="bundle exec rails g"
 alias migrate="bundle exec rake db:migrate"
-alias test="be rake test"
-alias test:all="be rake test:all"
+
+# these interfere with zsh
+# alias test="bundle exec rake test"
+# alias test:all="bundle exec rake test:all"
 
 # s3cmd
 alias s3='s3cmd'
@@ -164,7 +166,14 @@ function gbranch() {
 function gpo() {
   # pushes the current branch; whatever that is
   gbranch
-  gp origin $current_branch
+  while read line
+  do
+    echo $line
+    url=$(echo "$line" | grep -o -E "https://github.com/.+?/pull/new\S+" -)
+    if [[ -n "$url" ]]; then
+      echo $url | pbcopy
+    fi
+  done < <(gp origin $current_branch 2>&1)
 }
 
 function gpo!() {
