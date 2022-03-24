@@ -55,6 +55,7 @@ alias dcrake="docker compose run --rm rails rake"
 alias dcra="docker attach --detach-keys='ctrl-x' \$(docker compose ps -q rails)"
 alias dcember="docker compose run --rm ember yarn exec ember"
 alias dcets="docker compose run --rm -p 7357:7357 -d ember yarn start -e test -p 7357 && sleep 30 && open -a 'Google Chrome' http://localhost:7357/tests"
+alias dcpsql="docker compose run --rm db psql -U postgres -h host.docker.internal"
 
 function commitsnipe() {
   shadowprint "git commit --amend --no-edit --reset-author"

@@ -175,6 +175,10 @@ function dcets
   open -a 'Google Chrome' http://localhost:7357/tests
 end
 
+function dcpqsl
+  docker compose run --rm db psql -U postgres -h host.docker.internal $argv
+end
+
 
 # Git Fetch and Merge; delete the branch upon success
 function gfmerge!
