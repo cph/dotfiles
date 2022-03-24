@@ -50,10 +50,11 @@ alias gtrsh="git checkout --"
 alias gcopy='gl --pretty="%s" -1 | pbcopy'
 
 # Docker
-alias dcrails="docker compose run rails rails"
-alias dcrake="docker compose run rails rake"
-alias dcember="docker compose run ember yarn exec ember"
-alias dcets="docker compose run -p 7357:7357 -d ember yarn start -e test -p 7357 && sleep 30 && open -a 'Google Chrome' http://localhost:7357/tests"
+alias dcrails="docker compose run --rm rails rails"
+alias dcrake="docker compose run --rm rails rake"
+alias dcra="docker attach --detach-keys='ctrl-x' \$(docker compose ps -q rails)"
+alias dcember="docker compose run --rm ember yarn exec ember"
+alias dcets="docker compose run --rm -p 7357:7357 -d ember yarn start -e test -p 7357 && sleep 30 && open -a 'Google Chrome' http://localhost:7357/tests"
 
 function commitsnipe() {
   shadowprint "git commit --amend --no-edit --reset-author"
