@@ -154,21 +154,29 @@ end
 
 # Docker
 function dcrails
-  docker compose run rails rails $argv
+  docker compose run --rm rails rails $argv
 end
 
 function dcrake
-  docker compose run rails rake $argv
+  docker compose run --rm rails rake $argv
+end
+
+function dcra
+  docker attach --detach-keys="ctrl-x" (docker compose ps -q rails)
 end
 
 function dcember
-  docker compose run ember yarn exec ember $argv
+  docker compose run --rm ember yarn exec ember $argv
 end
 
 function dcets
-  docker compose run -p 7357:7357 -d ember yarn start -e test -p 7357
+  docker compose run --rm -p 7357:7357 -d ember yarn start -e test -p 7357
   sleep 30
   open -a 'Google Chrome' http://localhost:7357/tests
+end
+
+function dcpqsl
+  docker compose run --rm db psql -U postgres -h host.docker.internal $argv
 end
 
 
