@@ -161,6 +161,10 @@ function dcrake
   docker compose run --rm rails rake $argv
 end
 
+function dcra
+  docker attach --detach-keys="ctrl-x" (docker compose ps -q rails)
+end
+
 function dcember
   docker compose run --rm ember yarn exec ember $argv
 end
